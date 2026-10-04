@@ -72,7 +72,7 @@ export const TraceComparePage: React.FC<TraceComparePageProps> = ({
       <div className="flex items-center justify-between">
         <button
           onClick={onBack}
-          className="text-xs text-gray-400 hover:text-white flex items-center gap-1 font-mono transition-colors"
+          className="text-xs text-stone-500 hover:text-burgundy-900 flex items-center gap-1 font-mono transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back
         </button>
@@ -80,13 +80,13 @@ export const TraceComparePage: React.FC<TraceComparePageProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={() => onNavigateToRunDetail(baseRunId)}
-            className="text-xs font-mono bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 transition-colors"
+            className="text-xs font-mono bg-stone-100 hover:bg-stone-200 text-stone-700 px-3 py-1.5 rounded-lg border border-stone-200 transition-colors shadow-sm"
           >
             Base Run: {baseRunId.substring(0, 10)}...
           </button>
           <button
             onClick={() => onNavigateToRunDetail(targetRunId)}
-            className="text-xs font-mono bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 px-3 py-1.5 rounded-lg border border-indigo-500/40 transition-colors"
+            className="text-xs font-mono bg-burgundy-50 hover:bg-burgundy-100 text-burgundy-800 px-3 py-1.5 rounded-lg border border-burgundy-200 transition-colors font-medium shadow-sm"
           >
             Target Run: {targetRunId.substring(0, 10)}...
           </button>
@@ -94,24 +94,24 @@ export const TraceComparePage: React.FC<TraceComparePageProps> = ({
       </div>
 
       {/* Hero Compare Summary */}
-      <div className="rounded-2xl border border-indigo-900/40 bg-gradient-to-br from-gray-900 via-[#0E1420] to-[#0B0F17] p-6 shadow-2xl space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-800 pb-4">
+      <div className="rounded-2xl border border-burgundy-100 bg-white p-6 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-burgundy-100 pb-4">
           <div>
-            <div className="text-[11px] font-mono text-indigo-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
-              <GitCompare className="w-3.5 h-3.5" />
+            <div className="text-[11px] font-mono text-burgundy-800 uppercase tracking-widest font-semibold flex items-center gap-1.5">
+              <GitCompare className="w-3.5 h-3.5 text-burgundy-700" />
               Counterfactual Trace Divergence Analysis
             </div>
-            <h2 className="text-xl font-bold font-mono text-white mt-1">
+            <h2 className="text-xl font-bold font-mono text-stone-900 mt-1">
               Comparing {baseRunId} vs {targetRunId}
             </h2>
           </div>
 
           <div className="flex items-center gap-2 font-mono text-xs">
-            <span className="px-2.5 py-1 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30">
+            <span className="px-2.5 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200 font-semibold">
               {final_outcome_difference.base_outcome.toUpperCase()}
             </span>
-            <ArrowRight className="w-4 h-4 text-gray-500" />
-            <span className="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold">
+            <ArrowRight className="w-4 h-4 text-stone-400" />
+            <span className="px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
               {final_outcome_difference.target_outcome.toUpperCase()}
             </span>
           </div>
@@ -119,43 +119,43 @@ export const TraceComparePage: React.FC<TraceComparePageProps> = ({
 
         {/* Stats Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
-          <div className="bg-gray-950/70 p-4 rounded-xl border border-gray-800">
-            <span className="text-gray-500">UNCHANGED PREFIX</span>
-            <div className="text-emerald-400 font-bold text-lg mt-1">
+          <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 shadow-sm">
+            <span className="text-stone-400 font-medium">UNCHANGED PREFIX</span>
+            <div className="text-emerald-700 font-bold text-lg mt-1">
               {comparison.unchanged_steps_count} steps
             </div>
-            <div className="text-[10px] text-gray-500 mt-0.5">Identical state hashes</div>
+            <div className="text-[10px] text-stone-500 mt-0.5">Identical state hashes</div>
           </div>
 
-          <div className="bg-gray-950/70 p-4 rounded-xl border border-gray-800">
-            <span className="text-gray-500">FIRST DIVERGENCE</span>
-            <div className="text-amber-400 font-bold text-lg mt-1">
+          <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 shadow-sm">
+            <span className="text-stone-400 font-medium">FIRST DIVERGENCE</span>
+            <div className="text-amber-800 font-bold text-lg mt-1">
               Step {first_meaningful_divergence?.sequence_number || 'N/A'}
             </div>
-            <div className="text-[10px] text-gray-500 mt-0.5">{first_meaningful_divergence?.action}</div>
+            <div className="text-[10px] text-stone-500 mt-0.5">{first_meaningful_divergence?.action}</div>
           </div>
 
-          <div className="bg-gray-950/70 p-4 rounded-xl border border-gray-800">
-            <span className="text-gray-500">RECOMPUTED SUFFIX</span>
-            <div className="text-indigo-300 font-bold text-lg mt-1">
+          <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 shadow-sm">
+            <span className="text-stone-400 font-medium">RECOMPUTED SUFFIX</span>
+            <div className="text-burgundy-800 font-bold text-lg mt-1">
               {comparison.changed_steps_count} steps
             </div>
-            <div className="text-[10px] text-gray-500 mt-0.5">Downstream effects</div>
+            <div className="text-[10px] text-stone-500 mt-0.5">Downstream effects</div>
           </div>
 
-          <div className="bg-gray-950/70 p-4 rounded-xl border border-gray-800">
-            <span className="text-gray-500">OUTCOME RECOVERY</span>
-            <div className="text-emerald-400 font-bold text-lg mt-1 flex items-center gap-1.5">
+          <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 shadow-sm">
+            <span className="text-stone-400 font-medium">OUTCOME RECOVERY</span>
+            <div className="text-emerald-700 font-bold text-lg mt-1 flex items-center gap-1.5">
               {final_outcome_difference.improved ? (
                 <>
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                   RECOVERED
                 </>
               ) : (
                 'UNCHANGED'
               )}
             </div>
-            <div className="text-[10px] text-gray-500 mt-0.5">Counterfactual fix verified</div>
+            <div className="text-[10px] text-stone-500 mt-0.5">Counterfactual fix verified</div>
           </div>
         </div>
       </div>
@@ -163,23 +163,23 @@ export const TraceComparePage: React.FC<TraceComparePageProps> = ({
       {/* Step Comparison List */}
       <div className="space-y-4">
         <div>
-          <h3 className="text-base font-bold text-white">Execution Divergence Walkthrough</h3>
-          <p className="text-xs text-gray-400">Step-by-step state comparison showing reused prefix vs counterfactual suffix</p>
+          <h3 className="text-base font-bold text-stone-900">Execution Divergence Walkthrough</h3>
+          <p className="text-xs text-stone-500">Step-by-step state comparison showing reused prefix vs counterfactual suffix</p>
         </div>
 
         <div className="space-y-3">
           {/* Unchanged Prefix Section */}
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/10 p-4 space-y-2">
-            <div className="text-xs font-mono font-semibold text-emerald-400 flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4" />
+          <div className="rounded-xl border border-emerald-300 bg-emerald-50/60 p-4 space-y-2 shadow-sm">
+            <div className="text-xs font-mono font-semibold text-emerald-800 flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
               IDENTICAL PREFIX (STEPS 1 TO {comparison.unchanged_steps_count}) — REUSED 100%
             </div>
             <div className="flex flex-wrap gap-2 pt-1">
               {comparison.unchanged_steps.map((s) => (
-                <div key={s.sequence_number} className="text-xs font-mono bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-800 text-gray-300 flex items-center gap-1.5">
-                  <span className="text-gray-500 font-bold">{s.sequence_number}</span>
-                  <span>{s.action}</span>
-                  <span className="text-[10px] text-emerald-400 font-bold ml-1">✓ Reused</span>
+                <div key={s.sequence_number} className="text-xs font-mono bg-white px-3 py-1.5 rounded-lg border border-emerald-200 text-stone-700 flex items-center gap-1.5 shadow-sm">
+                  <span className="text-stone-400 font-bold">{s.sequence_number}</span>
+                  <span className="font-medium">{s.action}</span>
+                  <span className="text-[10px] text-emerald-700 font-bold ml-1">✓ Reused</span>
                 </div>
               ))}
             </div>
@@ -191,33 +191,33 @@ export const TraceComparePage: React.FC<TraceComparePageProps> = ({
             return (
               <div
                 key={step.sequence_number}
-                className={`rounded-xl border p-4 transition-all ${
+                className={`rounded-xl border p-4 transition-all shadow-sm ${
                   isDivergence
-                    ? 'border-amber-500/60 bg-amber-950/20 shadow-md shadow-amber-500/10'
-                    : 'border-gray-800 bg-gray-900/60'
+                    ? 'border-amber-300 bg-amber-50/70'
+                    : 'border-stone-200 bg-white'
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2.5">
-                    <span className="w-6 h-6 rounded-md bg-gray-800 text-xs font-mono font-bold text-gray-300 flex items-center justify-center">
+                    <span className="w-6 h-6 rounded-md bg-stone-100 text-xs font-mono font-bold text-stone-700 border border-stone-200 flex items-center justify-center">
                       {step.sequence_number}
                     </span>
-                    <span className="text-sm font-semibold text-white">
+                    <span className="text-sm font-semibold text-stone-900">
                       {step.action}
                     </span>
                     {isDivergence && (
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-bold">
                         FIRST MEANINGFUL DIVERGENCE (CHECKPOINT INJECTION)
                       </span>
                     )}
                   </div>
 
                   <div className="flex items-center gap-2 font-mono text-xs">
-                    <span className={`px-2 py-0.5 rounded ${step.base_status === 'failed' ? 'bg-rose-500/20 text-rose-400' : 'bg-gray-800 text-gray-400'}`}>
+                    <span className={`px-2 py-0.5 rounded ${step.base_status === 'failed' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-stone-100 text-stone-600'}`}>
                       Original: {step.base_status || 'none'}
                     </span>
-                    <ArrowRight className="w-3.5 h-3.5 text-gray-500" />
-                    <span className={`px-2 py-0.5 rounded font-bold ${step.target_status === 'success' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
+                    <ArrowRight className="w-3.5 h-3.5 text-stone-400" />
+                    <span className={`px-2 py-0.5 rounded font-bold ${step.target_status === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200'}`}>
                       Replay: {step.target_status}
                     </span>
                   </div>
@@ -225,16 +225,16 @@ export const TraceComparePage: React.FC<TraceComparePageProps> = ({
 
                 {/* State Diffs */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs font-mono">
-                  <div className="bg-[#070A0F] p-3 rounded-lg border border-gray-800">
-                    <span className="text-[10px] text-gray-500 uppercase block mb-1">ORIGINAL OUTPUT STATE</span>
-                    <pre className="text-gray-400 overflow-x-auto max-h-36">
+                  <div className="bg-stone-50 p-3 rounded-lg border border-stone-200 shadow-inner">
+                    <span className="text-[10px] text-stone-500 uppercase block mb-1 font-semibold">ORIGINAL OUTPUT STATE</span>
+                    <pre className="text-stone-700 overflow-x-auto max-h-36">
                       {JSON.stringify(step.base_output || {}, null, 2)}
                     </pre>
                   </div>
 
-                  <div className="bg-[#070A0F] p-3 rounded-lg border border-indigo-900/40">
-                    <span className="text-[10px] text-indigo-400 uppercase block mb-1">COUNTERFACTUAL REPLAY OUTPUT STATE</span>
-                    <pre className="text-emerald-300 overflow-x-auto max-h-36">
+                  <div className="bg-burgundy-50/30 p-3 rounded-lg border border-burgundy-200 shadow-inner">
+                    <span className="text-[10px] text-burgundy-800 uppercase block mb-1 font-semibold">COUNTERFACTUAL REPLAY OUTPUT STATE</span>
+                    <pre className="text-emerald-800 font-semibold overflow-x-auto max-h-36">
                       {JSON.stringify(step.target_output || {}, null, 2)}
                     </pre>
                   </div>

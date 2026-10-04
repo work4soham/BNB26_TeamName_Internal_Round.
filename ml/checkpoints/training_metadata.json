@@ -1,5 +1,5 @@
 {
-  "training_duration_seconds": 4.605,
+  "training_duration_seconds": 4.058,
   "total_runs": 1300,
   "splits": {
     "train_runs": 886,
@@ -40,5 +40,5 @@
       "top_3_accuracy": 1.0
     }
   },
-  "trained_at": "2026-10-03 13:27:31 UTC"
+  "trained_at": "2026-10-04 03:35:48 UTC"
 }

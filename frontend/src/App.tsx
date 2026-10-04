@@ -44,7 +44,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0F17] text-gray-100 flex flex-col font-sans selection:bg-indigo-500/30 selection:text-white">
+    <div className="min-h-screen bg-[#FAF8F9] text-gray-900 flex flex-col font-sans selection:bg-burgundy-200 selection:text-burgundy-900">
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
@@ -114,9 +114,9 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-900 bg-gray-950/80 py-6 px-6 text-center text-xs font-mono text-gray-600">
+      <footer className="border-t border-burgundy-100 bg-white/90 backdrop-blur-sm py-6 px-6 text-center text-xs font-mono text-gray-600 mt-12">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>BLACK BOX — An AI Flight Recorder for AI Agents</span>
+          <span className="font-semibold text-burgundy-900 tracking-wide">BLACK BOX — An AI Flight Recorder for AI Agents</span>
           <span className="text-gray-500">Research Benchmark & Root-Cause Counterfactual Replay</span>
         </div>
       </footer>

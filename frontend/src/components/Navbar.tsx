@@ -39,23 +39,23 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onLaunc
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-800 bg-[#0B0F17]/90 backdrop-blur-md px-6 py-3.5 flex items-center justify-between">
+    <header className="sticky top-0 z-50 border-b border-burgundy-100 bg-white/95 backdrop-blur-md px-6 py-3.5 flex items-center justify-between shadow-sm">
       <div className="flex items-center space-x-8">
         <div 
           onClick={() => setActiveTab('overview')} 
           className="flex items-center space-x-3 cursor-pointer group"
         >
-          <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:bg-indigo-500 transition-colors">
+          <div className="w-9 h-9 rounded-lg bg-burgundy-700 flex items-center justify-center shadow-md shadow-burgundy-700/20 group-hover:bg-burgundy-800 transition-colors">
             <Activity className="w-5 h-5 text-white" />
           </div>
           <div>
-            <div className="font-bold text-white text-base tracking-wider flex items-center gap-1.5">
+            <div className="font-bold text-burgundy-950 text-base tracking-wider flex items-center gap-1.5">
               BLACK BOX
-              <span className="text-[10px] uppercase tracking-widest font-mono bg-indigo-500/20 text-indigo-400 px-1.5 py-0.5 rounded border border-indigo-500/30">
+              <span className="text-[10px] uppercase tracking-widest font-mono bg-burgundy-50 text-burgundy-800 px-1.5 py-0.5 rounded border border-burgundy-200 font-semibold">
                 RECORDER
               </span>
             </div>
-            <div className="text-[11px] text-gray-400 font-mono">Agent Root-Cause Observability</div>
+            <div className="text-[11px] text-stone-500 font-mono">Agent Root-Cause Observability</div>
           </div>
         </div>
 
@@ -70,11 +70,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onLaunc
                 onClick={() => setActiveTab(item.id)}
                 className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-md text-xs font-medium transition-all ${
                   isActive
-                    ? 'bg-indigo-600/20 text-indigo-400 border border-indigo-500/30'
-                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 border border-transparent'
+                    ? 'bg-burgundy-50 text-burgundy-800 border border-burgundy-200 shadow-sm font-semibold'
+                    : 'text-stone-600 hover:text-burgundy-900 hover:bg-stone-50 border border-transparent'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-indigo-400' : 'text-gray-500'}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-burgundy-700' : 'text-stone-400'}`} />
                 <span>{item.label}</span>
               </button>
             );
@@ -86,15 +86,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onLaunc
         {/* Curated Demo Action */}
         <button
           onClick={onLaunchDemo}
-          className="flex items-center space-x-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-amber-300 border border-amber-500/40 px-3.5 py-1.5 rounded-md text-xs font-semibold shadow-sm transition-all"
+          className="flex items-center space-x-2 bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border border-amber-300 px-3.5 py-1.5 rounded-md text-xs font-semibold shadow-sm transition-all"
         >
-          <PlayCircle className="w-4 h-4 text-amber-400 animate-pulse" />
+          <PlayCircle className="w-4 h-4 text-amber-600 animate-pulse" />
           <span>Inspect Currency Bug Demo</span>
         </button>
 
         {/* Backend health status pill */}
-        <div className="flex items-center space-x-2 px-2.5 py-1 rounded-full bg-gray-900 border border-gray-800 text-[11px] font-mono text-gray-300">
-          <span className={`w-2 h-2 rounded-full ${isHealthy ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]' : 'bg-rose-500'}`} />
+        <div className="flex items-center space-x-2 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-[11px] font-mono text-stone-700 shadow-sm">
+          <span className={`w-2 h-2 rounded-full ${isHealthy ? 'bg-emerald-500 shadow-[0_0_8px_#10B981]' : 'bg-rose-500'}`} />
           <span>{isHealthy === null ? 'CONNECTING...' : isHealthy ? 'API ONLINE' : 'OFFLINE'}</span>
         </div>
       </div>

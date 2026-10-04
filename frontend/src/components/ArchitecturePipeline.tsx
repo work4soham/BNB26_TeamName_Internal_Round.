@@ -75,17 +75,17 @@ export const ArchitecturePipeline: React.FC = () => {
   ];
 
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-5 shadow-xl">
+    <div className="rounded-xl border border-burgundy-100 bg-white p-5 shadow-sm">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-sm font-semibold text-gray-200 tracking-wide uppercase font-mono flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+          <h3 className="text-sm font-semibold text-stone-900 tracking-wide uppercase font-mono flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-burgundy-700 animate-pulse" />
             Research Architecture Pipeline
           </h3>
-          <p className="text-xs text-gray-400 mt-0.5">End-to-end flight recorder, failure localization, and counterfactual replay workflow</p>
+          <p className="text-xs text-stone-500 mt-0.5">End-to-end flight recorder, failure localization, and counterfactual replay workflow</p>
         </div>
-        <div className="text-[11px] font-mono text-gray-400 flex items-center gap-1.5 bg-gray-800/80 px-2.5 py-1 rounded border border-gray-700">
-          <Info className="w-3.5 h-3.5 text-indigo-400" />
+        <div className="text-[11px] font-mono text-stone-600 flex items-center gap-1.5 bg-stone-50 px-2.5 py-1 rounded border border-stone-200">
+          <Info className="w-3.5 h-3.5 text-burgundy-700" />
           Click a stage to inspect mechanism
         </div>
       </div>
@@ -101,27 +101,27 @@ export const ArchitecturePipeline: React.FC = () => {
               onClick={() => setSelectedStage(idx)}
               className={`cursor-pointer rounded-lg p-3 transition-all relative border ${
                 isSelected
-                  ? 'bg-indigo-600/20 border-indigo-500 shadow-md shadow-indigo-500/10'
-                  : 'bg-gray-800/40 border-gray-800 hover:border-gray-700 hover:bg-gray-800/70'
+                  ? 'bg-burgundy-50 border-burgundy-600 shadow-sm'
+                  : 'bg-stone-50/70 border-stone-200 hover:border-burgundy-300 hover:bg-burgundy-50/30'
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-mono font-semibold text-gray-500">
+                <span className="text-[10px] font-mono font-semibold text-stone-400">
                   0{idx + 1}
                 </span>
-                <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${
-                  isSelected ? 'bg-indigo-500 text-white' : 'bg-gray-800 text-gray-400'
+                <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-semibold ${
+                  isSelected ? 'bg-burgundy-700 text-white' : 'bg-stone-200 text-stone-600'
                 }`}>
                   {stage.badge}
                 </span>
               </div>
               <div className="flex items-center gap-2 mb-1">
-                <Icon className={`w-4 h-4 ${isSelected ? 'text-indigo-400' : 'text-gray-400'}`} />
-                <h4 className="text-xs font-semibold text-gray-200 truncate">{stage.name}</h4>
+                <Icon className={`w-4 h-4 ${isSelected ? 'text-burgundy-700' : 'text-stone-500'}`} />
+                <h4 className={`text-xs font-semibold truncate ${isSelected ? 'text-burgundy-950 font-bold' : 'text-stone-700'}`}>{stage.name}</h4>
               </div>
               {idx < stages.length - 1 && (
-                <div className="hidden lg:block absolute -right-2.5 top-1/2 -translate-y-1/2 z-10">
-                  <ChevronRight className="w-4 h-4 text-gray-700" />
+                <div className="hidden lg:block absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
+                  <ChevronRight className="w-4 h-4 text-stone-300" />
                 </div>
               )}
             </div>
@@ -130,18 +130,18 @@ export const ArchitecturePipeline: React.FC = () => {
       </div>
 
       {/* Stage Detail Card */}
-      <div className="bg-gray-950/70 border border-gray-800/90 rounded-lg p-3.5 flex items-start gap-3">
-        <div className="w-8 h-8 rounded-md bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center shrink-0">
-          {React.createElement(stages[selectedStage].icon, { className: 'w-4 h-4 text-indigo-400' })}
+      <div className="bg-burgundy-50/40 border border-burgundy-100 rounded-lg p-3.5 flex items-start gap-3">
+        <div className="w-8 h-8 rounded-md bg-burgundy-100 border border-burgundy-200 flex items-center justify-center shrink-0">
+          {React.createElement(stages[selectedStage].icon, { className: 'w-4 h-4 text-burgundy-800' })}
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-gray-200">{stages[selectedStage].name}</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+            <span className="text-xs font-bold text-stone-900">{stages[selectedStage].name}</span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-burgundy-100 text-burgundy-900 border border-burgundy-200 font-medium">
               Stage 0{selectedStage + 1} of 08
             </span>
           </div>
-          <p className="text-xs text-gray-300 mt-1 leading-relaxed">
+          <p className="text-xs text-stone-700 mt-1 leading-relaxed">
             {stages[selectedStage].desc}
           </p>
         </div>
