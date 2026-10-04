@@ -7,12 +7,31 @@ All endpoints are hosted at `http://localhost:8000` (or `https://your-domain.rai
 ## 1. System & Health
 
 ### `GET /health`
-Returns service and database probe status.
+Returns service and database probe status, including active database engine and Supabase project ID.
 ```json
 {
   "status": "ok",
   "database": "healthy",
+  "database_engine": "Supabase" | "SQLite",
+  "supabase_project_id": "lmowqbpuupkrxvtorknk",
+  "is_supabase": true,
   "service": "Black Box AI Flight Recorder"
+}
+```
+
+### `GET /supabase/status`
+Returns Supabase cloud project metadata and connection state.
+```json
+{
+  "project_id": "lmowqbpuupkrxvtorknk",
+  "supabase_url": "https://lmowqbpuupkrxvtorknk.supabase.co",
+  "database_host": "db.lmowqbpuupkrxvtorknk.supabase.co",
+  "has_anon_key": false,
+  "has_service_role_key": false,
+  "has_db_password": false,
+  "client_connected": false,
+  "is_database_connected": false,
+  "provider": "SQLite (Fallback)"
 }
 ```
 

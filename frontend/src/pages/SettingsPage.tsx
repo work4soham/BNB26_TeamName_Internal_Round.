@@ -9,22 +9,45 @@ import {
   Server, 
   Layers,
   Terminal,
-  ShieldAlert
+  ShieldCheck,
+  Cloud,
+  Key,
+  ExternalLink,
+  Copy,
+  Check
 } from 'lucide-react';
 import { api } from '../services/api';
 import { SystemStatus } from '../types';
 
 export const SettingsPage: React.FC = () => {
   const [status, setStatus] = useState<SystemStatus | null>(null);
+  const [supabaseStatus, setSupabaseStatus] = useState<{
+    project_id: string;
+    supabase_url: string;
+    database_host: string;
+    jwks_url?: string;
+    has_publishable_key?: boolean;
+    has_secret_key?: boolean;
+    has_anon_key: boolean;
+    has_service_role_key: boolean;
+    has_db_password: boolean;
+    client_connected: boolean;
+    api_reachable?: boolean;
+    is_database_connected: boolean;
+    provider: string;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [retraining, setRetraining] = useState(false);
   const [retrainSuccess, setRetrainSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const fetchStatus = () => {
     setLoading(true);
-    api.getTrainingStatus()
-      .then(setStatus)
+    Promise.all([
+      api.getTrainingStatus().then(setStatus).catch(() => null),
+      api.getSupabaseStatus().then(setSupabaseStatus).catch(() => null)
+    ])
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   };
@@ -32,6 +55,12 @@ export const SettingsPage: React.FC = () => {
   useEffect(() => {
     fetchStatus();
   }, []);
+
+  const handleCopy = (text: string, keyName: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(keyName);
+    setTimeout(() => setCopiedKey(null), 2000);
+  };
 
   const handleRetrain = async () => {
     setRetraining(true);
@@ -53,6 +82,9 @@ export const SettingsPage: React.FC = () => {
   };
 
   const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const projectId = supabaseStatus?.project_id || 'lmowqbpuupkrxvtorknk';
+  const supabaseUrl = supabaseStatus?.supabase_url || `https://${projectId}.supabase.co`;
+  const dbHost = supabaseStatus?.database_host || `db.${projectId}.supabase.co`;
 
   return (
     <div className="space-y-8 pb-16 max-w-4xl">
@@ -62,7 +94,7 @@ export const SettingsPage: React.FC = () => {
           System Settings & Platform Configuration
         </h2>
         <p className="text-xs text-stone-500 mt-1">
-          Backend connectivity, database status, ML retraining triggers, and deployment environment
+          Backend connectivity, Supabase Cloud integration, ML retraining triggers, and deployment environment
         </p>
       </div>
 
@@ -80,6 +112,146 @@ export const SettingsPage: React.FC = () => {
         </div>
       )}
 
+      {/* Supabase Cloud Integration Card */}
+      <div className="rounded-xl border border-burgundy-200 bg-white p-6 space-y-5 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-burgundy-50 border border-burgundy-200 flex items-center justify-center text-burgundy-700">
+              <Cloud className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-stone-900 uppercase font-mono tracking-wider flex items-center gap-2">
+                Supabase Integration
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-burgundy-100 text-burgundy-800 font-sans font-semibold">
+                  Project: {projectId}
+                </span>
+              </h3>
+              <p className="text-xs text-stone-500 mt-0.5">
+                Managed PostgreSQL database, trace storage, and client API synchronization
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={fetchStatus}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 font-mono text-xs transition-colors"
+            >
+              <RefreshCw className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} />
+              Refresh Status
+            </button>
+            <a
+              href={`https://supabase.com/dashboard/project/${projectId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-burgundy-700 hover:bg-burgundy-800 text-white font-mono text-xs font-semibold transition-colors shadow-sm"
+            >
+              Dashboard
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-mono">
+          <div className="bg-stone-50 p-3.5 rounded-lg border border-stone-200">
+            <div className="flex items-center justify-between">
+              <span className="text-stone-400 text-[10px] font-medium">PROJECT ID</span>
+              <button 
+                onClick={() => handleCopy(projectId, 'pid')} 
+                className="text-stone-400 hover:text-burgundy-700 transition-colors"
+              >
+                {copiedKey === 'pid' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+            <div className="text-burgundy-800 font-bold mt-1 truncate">{projectId}</div>
+          </div>
+
+          <div className="bg-stone-50 p-3.5 rounded-lg border border-stone-200">
+            <div className="flex items-center justify-between">
+              <span className="text-stone-400 text-[10px] font-medium">DATABASE HOST</span>
+              <button 
+                onClick={() => handleCopy(dbHost, 'host')} 
+                className="text-stone-400 hover:text-burgundy-700 transition-colors"
+              >
+                {copiedKey === 'host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+            <div className="text-stone-800 font-bold mt-1 truncate">{dbHost}</div>
+          </div>
+
+          <div className="bg-stone-50 p-3.5 rounded-lg border border-stone-200">
+            <span className="text-stone-400 text-[10px] font-medium">ACTIVE PERSISTENCE</span>
+            <div className="mt-1 flex items-center gap-2">
+              <span className={`w-2 h-2 rounded-full ${supabaseStatus?.is_database_connected ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+              <span className="font-bold text-stone-900">
+                {supabaseStatus?.provider || 'SQLite (Local Fallback)'}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Credentials Status Badges */}
+        <div className="bg-burgundy-50/50 p-4 rounded-lg border border-burgundy-100 space-y-3">
+          <div className="text-xs font-semibold text-burgundy-950 flex items-center gap-2">
+            <Key className="w-3.5 h-3.5 text-burgundy-700" />
+            <span>Connection Credentials Status</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs font-mono">
+            <div className="p-2.5 rounded bg-white border border-burgundy-100 flex items-center justify-between">
+              <span className="text-stone-600 text-[11px]">Publishable Key:</span>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                supabaseStatus?.has_publishable_key 
+                  ? 'bg-emerald-100 text-emerald-800' 
+                  : 'bg-stone-100 text-stone-600'
+              }`}>
+                {supabaseStatus?.has_publishable_key ? 'CONFIGURED' : 'UNSET'}
+              </span>
+            </div>
+
+            <div className="p-2.5 rounded bg-white border border-burgundy-100 flex items-center justify-between">
+              <span className="text-stone-600 text-[11px]">Secret Key:</span>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                supabaseStatus?.has_secret_key 
+                  ? 'bg-emerald-100 text-emerald-800' 
+                  : 'bg-stone-100 text-stone-600'
+              }`}>
+                {supabaseStatus?.has_secret_key ? 'CONFIGURED' : 'UNSET'}
+              </span>
+            </div>
+
+            <div className="p-2.5 rounded bg-white border border-burgundy-100 flex items-center justify-between">
+              <span className="text-stone-600 text-[11px]">Client & API:</span>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                supabaseStatus?.api_reachable 
+                  ? 'bg-emerald-100 text-emerald-800' 
+                  : supabaseStatus?.client_connected 
+                    ? 'bg-amber-100 text-amber-800' 
+                    : 'bg-stone-100 text-stone-600'
+              }`}>
+                {supabaseStatus?.api_reachable ? 'AUTHENTICATED' : supabaseStatus?.client_connected ? 'CONNECTED' : 'STANDBY'}
+              </span>
+            </div>
+
+            <div className="p-2.5 rounded bg-white border border-burgundy-100 flex items-center justify-between">
+              <span className="text-stone-600 text-[11px]">PostgreSQL:</span>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                supabaseStatus?.is_database_connected 
+                  ? 'bg-emerald-100 text-emerald-800' 
+                  : 'bg-stone-100 text-stone-600'
+              }`}>
+                {supabaseStatus?.is_database_connected ? 'CONNECTED' : 'LOCAL FALLBACK'}
+              </span>
+            </div>
+          </div>
+
+          <div className="text-[11px] text-stone-600 leading-relaxed font-sans pt-1">
+            <span className="font-semibold text-burgundy-800">Quick Connect: </span>
+            To connect PostgreSQL directly to your project, add <code className="px-1.5 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] text-burgundy-900">SUPABASE_DB_PASSWORD=your_password</code> or <code className="px-1.5 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] text-burgundy-900">DATABASE_URL=postgresql://postgres:your_password@db.{projectId}.supabase.co:5432/postgres</code> to your <code className="font-mono text-stone-800">.env</code> file. To test and migrate data run <code className="font-mono text-burgundy-800">python scripts/supabase_sync.py</code>.
+          </div>
+        </div>
+      </div>
+
       {/* Connectivity Card */}
       <div className="rounded-xl border border-burgundy-100 bg-white p-6 space-y-4 shadow-sm">
         <h3 className="text-sm font-bold text-stone-900 flex items-center gap-2 uppercase font-mono tracking-wider">
@@ -93,10 +265,10 @@ export const SettingsPage: React.FC = () => {
             <div className="text-burgundy-800 font-bold mt-1 truncate">{apiUrl}</div>
           </div>
           <div className="bg-stone-50 p-3 rounded-lg border border-stone-200 shadow-sm">
-            <span className="text-stone-400 text-[10px] font-medium">DATABASE ENGINE</span>
+            <span className="text-stone-400 text-[10px] font-medium">DATABASE ADAPTER</span>
             <div className="text-emerald-700 font-bold mt-1 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              SQLite (Dev) / PostgreSQL Compatible
+              SQLAlchemy 2.0 with Auto-Pooling & Pre-Ping
             </div>
           </div>
         </div>
@@ -164,8 +336,8 @@ export const SettingsPage: React.FC = () => {
             <span className="text-emerald-700 font-bold">uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT</span>
           </div>
           <div className="p-3 rounded-lg bg-stone-50 border border-stone-200 flex items-center justify-between shadow-sm">
-            <span className="font-medium">Database (PostgreSQL)</span>
-            <span className="text-amber-800 font-bold">DATABASE_URL=postgresql://user:pass@host:5432/db</span>
+            <span className="font-medium">Database (Supabase PostgreSQL)</span>
+            <span className="text-burgundy-800 font-bold">DATABASE_URL=postgresql://postgres:***@db.{projectId}.supabase.co:5432/postgres</span>
           </div>
         </div>
       </div>

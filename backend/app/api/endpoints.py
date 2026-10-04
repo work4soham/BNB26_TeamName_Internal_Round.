@@ -4,7 +4,8 @@ from sqlalchemy import text
 from typing import List, Optional, Dict, Any
 import logging
 
-from backend.app.database.session import get_db
+from backend.app.database.session import get_db, get_db_info
+from backend.app.database.supabase import get_supabase_metadata
 from backend.app.schemas.run import (
     RunCreate,
     RunUpdate,
@@ -44,6 +45,7 @@ _diagnosis_cache: Dict[str, Dict[str, Any]] = {}
 @router.get("/health", tags=["System"])
 def health_check(db: Session = Depends(get_db)):
     """Health check endpoint validating service and database connectivity."""
+    db_info = get_db_info()
     try:
         db.execute(text("SELECT 1"))
         db_status = "healthy"
@@ -54,8 +56,16 @@ def health_check(db: Session = Depends(get_db)):
     return {
         "status": "ok" if db_status == "healthy" else "degraded",
         "database": db_status,
+        "database_engine": db_info["provider"],
+        "supabase_project_id": db_info["supabase_project_id"],
+        "is_supabase": db_info["is_supabase"],
         "service": "Black Box AI Flight Recorder"
     }
+
+@router.get("/supabase/status", tags=["System"])
+def get_supabase_status():
+    """Retrieve Supabase integration status and project metadata."""
+    return get_supabase_metadata()
 
 @router.post("/runs", response_model=RunResponse, status_code=status.HTTP_201_CREATED, tags=["Runs"])
 def create_run(run: RunCreate, db: Session = Depends(get_db)):

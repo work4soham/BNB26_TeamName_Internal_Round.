@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.api.endpoints import router
-from backend.app.database.session import engine
+from backend.app.database.session import engine, get_db_info
 from backend.app.models.base import Base
 import backend.app.models  # Register all models with Base.metadata
 
@@ -14,11 +14,17 @@ logging.basicConfig(
 logger = logging.getLogger("blackbox")
 
 # Create tables if not present
-Base.metadata.create_all(bind=engine)
+try:
+    Base.metadata.create_all(bind=engine)
+    db_info = get_db_info()
+    logger.info(f"Database schema verified. Active engine: {db_info['provider']}")
+except Exception as e:
+    logger.warning(f"Database schema initialization warning: {e}")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Black Box AI Flight Recorder backend initialized and running.")
+    info = get_db_info()
+    logger.info(f"Black Box AI Flight Recorder initialized. DB: {info['provider']} (Supabase Project: {info['supabase_project_id']}).")
     yield
     logger.info("Black Box AI Flight Recorder backend shut down cleanly.")
 

@@ -9,7 +9,17 @@
     "preview": "npm --prefix frontend run preview",
     "start": "npm --prefix frontend run dev"
   },
-  "keywords": ["ai-agents", "observability", "flight-recorder", "ml", "fastapi", "react"],
+  "keywords": [
+    "ai-agents",
+    "observability",
+    "flight-recorder",
+    "ml",
+    "fastapi",
+    "react"
+  ],
   "author": "",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@supabase/server": "^1.4.1"
+  }
 }

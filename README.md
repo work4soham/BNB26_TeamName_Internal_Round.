@@ -123,6 +123,19 @@ PYTHONPATH=. pytest -v
 uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
 ```
 
+### 5. Supabase Cloud Integration (Project `lmowqbpuupkrxvtorknk`)
+To connect the backend to your managed Supabase PostgreSQL instance:
+```bash
+# Add your password to .env or pass as argument
+python scripts/supabase_sync.py --password YOUR_SUPABASE_PASSWORD --migrate-sqlite
+```
+Or set in `.env`:
+```env
+SUPABASE_PROJECT_ID=lmowqbpuupkrxvtorknk
+SUPABASE_DB_PASSWORD=your_supabase_password
+DATABASE_URL=postgresql://postgres:your_supabase_password@db.lmowqbpuupkrxvtorknk.supabase.co:5432/postgres
+```
+
 ---
 
 ## API Reference
@@ -130,6 +143,7 @@ uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
 | Method | Endpoint | Description |
 |---|---|---|
 | `GET` | `/health` | Service and database connectivity health probe |
+| `GET` | `/supabase/status` | Supabase project metadata and connection state |
 | `POST` | `/runs` | Create a new agent execution run |
 | `GET` | `/runs` | List runs with pagination and filtering |
 | `GET` | `/runs/{run_id}` | Retrieve full run details, trace steps, and checkpoints |
@@ -145,3 +159,4 @@ uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
 | `POST` | `/model/train` | Trigger zero-leakage ML pipeline training |
 | `POST` | `/evaluation/run` | Benchmark evaluation on test split and holdout categories |
 | `GET` | `/training/status` | Model version and dataset statistics |
+

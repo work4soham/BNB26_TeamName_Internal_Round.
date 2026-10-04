@@ -90,4 +90,20 @@ export const api = {
   }),
 
   getTrainingStatus: () => fetchJSON<SystemStatus>('/training/status'),
+
+  getSupabaseStatus: () => fetchJSON<{
+    project_id: string;
+    supabase_url: string;
+    database_host: string;
+    jwks_url?: string;
+    has_publishable_key: boolean;
+    has_secret_key: boolean;
+    has_anon_key: boolean;
+    has_service_role_key: boolean;
+    has_db_password: boolean;
+    client_connected: boolean;
+    api_reachable: boolean;
+    is_database_connected: boolean;
+    provider: string;
+  }>('/supabase/status'),
 };
