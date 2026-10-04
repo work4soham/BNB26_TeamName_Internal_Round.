@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: blackbox-backend
+    env: python
+    buildCommand: pip install -r requirements.txt && python scripts/reproduce_all.py
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: blackbox-postgres
+          property: connectionString
+
+  - type: web
+    name: blackbox-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: blackbox-backend
+          property: host
+
+databases:
+  - name: blackbox-postgres
+    databaseName: blackbox
+    user: blackbox_user

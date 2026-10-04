@@ -1,0 +1,44 @@
+{
+  "training_duration_seconds": 4.605,
+  "total_runs": 1300,
+  "splits": {
+    "train_runs": 886,
+    "val_runs": 137,
+    "test_runs": 239,
+    "unseen_holdout_runs": 38
+  },
+  "holdout_categories": [
+    "wrong_currency"
+  ],
+  "test_metrics": {
+    "total_evaluated": 61,
+    "top_1_accuracy": 1.0,
+    "root_cause_step_accuracy": 1.0,
+    "top_3_accuracy": 1.0,
+    "mean_reciprocal_rank": 1.0,
+    "anomaly_precision": 0.3675,
+    "anomaly_recall": 1.0,
+    "hidden_root_cause_accuracy": 1.0,
+    "hidden_root_cause_metrics": {
+      "total_hidden": 27,
+      "top_1_accuracy": 1.0,
+      "top_3_accuracy": 1.0
+    }
+  },
+  "unseen_category_metrics": {
+    "total_evaluated": 38,
+    "top_1_accuracy": 1.0,
+    "root_cause_step_accuracy": 1.0,
+    "top_3_accuracy": 1.0,
+    "mean_reciprocal_rank": 1.0,
+    "anomaly_precision": 0.2317,
+    "anomaly_recall": 1.0,
+    "hidden_root_cause_accuracy": 1.0,
+    "hidden_root_cause_metrics": {
+      "total_hidden": 38,
+      "top_1_accuracy": 1.0,
+      "top_3_accuracy": 1.0
+    }
+  },
+  "trained_at": "2026-10-03 13:27:31 UTC"
+}

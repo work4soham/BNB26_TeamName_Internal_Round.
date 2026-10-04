@@ -1,0 +1,105 @@
+{
+  "step_stats": {
+    "execute_parse_request": {
+      "mean_latency": 305.0925507900677,
+      "std_latency": 130.1247899529933,
+      "mean_tokens": 322.09480812641084,
+      "std_tokens": 99.88737470478766
+    },
+    "execute_identify_origin": {
+      "mean_latency": 304.22121896162525,
+      "std_latency": 130.03644497424162,
+      "mean_tokens": 322.92325056433407,
+      "std_tokens": 99.63162840256676
+    },
+    "execute_identify_destination": {
+      "mean_latency": 305.8893905191874,
+      "std_latency": 130.2328491165691,
+      "mean_tokens": 324.54176072234765,
+      "std_tokens": 99.6127148074063
+    },
+    "execute_search_flights": {
+      "mean_latency": 304.0022573363431,
+      "std_latency": 130.32970863166634,
+      "mean_tokens": 326.5553047404063,
+      "std_tokens": 99.71215225374577
+    },
+    "execute_retrieve_fares": {
+      "mean_latency": 301.607223476298,
+      "std_latency": 130.18636283213468,
+      "mean_tokens": 327.38374717832954,
+      "std_tokens": 100.1532996854192
+    },
+    "execute_filter_flights": {
+      "mean_latency": 303.42790697674417,
+      "std_latency": 130.29127712790006,
+      "mean_tokens": 325.42325581395346,
+      "std_tokens": 100.75308255936207
+    },
+    "execute_select_flight": {
+      "mean_latency": 302.3581395348837,
+      "std_latency": 129.91756640906937,
+      "mean_tokens": 325.70232558139537,
+      "std_tokens": 100.9463350138637
+    },
+    "execute_validate_fare": {
+      "mean_latency": 303.2096774193548,
+      "std_latency": 129.8285735759636,
+      "mean_tokens": 327.060794044665,
+      "std_tokens": 101.48197178261813
+    },
+    "execute_validate_passenger": {
+      "mean_latency": 305.76568501920616,
+      "std_latency": 129.7599088968743,
+      "mean_tokens": 327.3098591549296,
+      "std_tokens": 102.1159180023134
+    },
+    "execute_reserve_seat": {
+      "mean_latency": 304.8257887517147,
+      "std_latency": 129.63841703110708,
+      "mean_tokens": 326.12345679012344,
+      "std_tokens": 102.58261008319079
+    },
+    "execute_payment": {
+      "mean_latency": 305.60356652949247,
+      "std_latency": 129.66569038492807,
+      "mean_tokens": 323.51851851851853,
+      "std_tokens": 102.5472422830708
+    },
+    "execute_booking_confirmation": {
+      "mean_latency": 307.3985815602837,
+      "std_latency": 130.56544240250204,
+      "mean_tokens": 322.67801418439717,
+      "std_tokens": 102.08675151934676
+    }
+  },
+  "tool_failure_rates": {
+    "execute_parse_request": 0.0,
+    "execute_identify_origin": 0.0,
+    "execute_identify_destination": 0.0,
+    "execute_search_flights": 0.0,
+    "execute_retrieve_fares": 0.029345372460496615,
+    "execute_filter_flights": 0.0,
+    "execute_select_flight": 0.06279069767441861,
+    "execute_validate_fare": 0.031017369727047148,
+    "execute_validate_passenger": 0.06658130601792574,
+    "execute_reserve_seat": 0.0,
+    "execute_payment": 0.03292181069958848,
+    "execute_booking_confirmation": 0.0
+  },
+  "historical_failure_corr": {
+    "execute_parse_request": 0.20428893905191872,
+    "execute_identify_origin": 0.20428893905191872,
+    "execute_identify_destination": 0.20428893905191872,
+    "execute_search_flights": 0.20428893905191872,
+    "execute_retrieve_fares": 0.20428893905191872,
+    "execute_filter_flights": 0.18023255813953487,
+    "execute_select_flight": 0.18023255813953487,
+    "execute_validate_fare": 0.12531017369727046,
+    "execute_validate_passenger": 0.0973111395646607,
+    "execute_reserve_seat": 0.03292181069958848,
+    "execute_payment": 0.03292181069958848,
+    "execute_booking_confirmation": 0.0
+  },
+  "is_fitted": true
+}
